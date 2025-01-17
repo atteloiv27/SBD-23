@@ -2,12 +2,10 @@ import time  # Импортируем модуль time для замера вр
 import numpy as np  # Импортируем numpy, библиотеку для работы с многомерными массивами и матрицами
 from multiprocessing import Pool  # Импортируем класс Pool из модуля multiprocessing для параллельной обработки
 
-def calculate_row_sum(matrix, row_index):
-    """Вычисляет сумму элементов одной строки матрицы."""
+def calculate_row_sum(matrix, row_index): # ИВычисляет сумму элементов одной строки матрицы
     return matrix[row_index].sum()  # Возвращаем сумму элементов строки с индексом row_index в матрице
 
-def calculate_col_sum(matrix, col_index):
-    """Вычисляет сумму элементов одного столбца матрицы."""
+def calculate_col_sum(matrix, col_index): # Вычисляет сумму элементов одного столбца матрицы
     return matrix[:, col_index].sum()  # Возвращаем сумму элементов столбца с индексом col_index в матрице
 
 # Генерация большой случайной матрицы размером 100x100 с элементами от 0 до 9
