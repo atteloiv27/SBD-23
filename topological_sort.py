@@ -1,36 +1,41 @@
-from collections import deque
+from collections import deque  # Импортируем класс deque из модуля collections для реализации очереди с быстрым добавлением и удалением элементов с обоих концов
 
-def topological_sort(graph): # позволяет упорядочить процессы в порядке их исполнения 
-    # на основе матрицы конфликтов
-    # graph: словарь вида {узел: [соседние узлы]}
-    in_degree = {node: 0 for node in graph}
-    for node, neighbors in graph.items():
-        for neighbor in neighbors:
-            in_degree[neighbor] += 1
+def topological_sort(graph):  # Определяем функцию topological_sort для сортировки графа
+    # graph: словарь, где ключи - это узлы графа, а значения - список соседей (ребер, которые исходят от узла)
     
-    queue = deque([node for node, degree in in_degree.items() if degree == 0])
-    result = []
+    in_degree = {node: 0 for node in graph}  # Создаем словарь in_degree, в котором для каждого узла будет храниться количество входящих ребер. Изначально все значения равны 0.
     
-    while queue:
-        node = queue.popleft()
-        result.append(node)
-        for neighbor in graph[node]:
-            in_degree[neighbor] -= 1
-            if in_degree[neighbor] == 0:
-                queue.append(neighbor)
+    for node, neighbors in graph.items():  # Проходим по каждому узлу графа и его соседям
+        for neighbor in neighbors:  # Для каждого соседа увеличиваем входящую степень на 1
+            in_degree[neighbor] += 1  # Если у соседа есть входящее ребро, увеличиваем его входящую степень
     
-    if len(result) != len(graph):
-        raise ValueError("Граф содержит цикл!")
+    # Инициализируем очередь элементами, у которых входящая степень равна 0 (то есть нет зависимостей перед ними)
+    queue = deque([node for node, degree in in_degree.items() if degree == 0])  
+    result = []  # Список для хранения топологически отсортированных узлов
     
-    return result
+    while queue:  # Пока очередь не пуста, продолжаем извлекать элементы
+        node = queue.popleft()  # Извлекаем первый элемент из очереди
+        result.append(node)  # Добавляем его в результат (это узел, который можно обработать)
+
+        # Обрабатываем всех соседей текущего узла
+        for neighbor in graph[node]:  # Для каждого соседа текущего узла
+            in_degree[neighbor] -= 1  # Уменьшаем его входящую степень, так как один из предшествующих узлов обработан
+            if in_degree[neighbor] == 0:  # Если входящая степень соседа стала равной 0
+                queue.append(neighbor)  # Добавляем его в очередь, так как теперь его можно обработать
+    
+    # Если количество обработанных узлов не совпадает с количеством узлов в графе, значит в графе есть цикл
+    if len(result) != len(graph):  
+        raise ValueError("Граф содержит цикл!")  # Если цикл обнаружен, выбрасываем исключение
+    
+    return result  # Возвращаем отсортированные узлы графа
 
 # Пример использования
 graph = {
-    'A': ['B'],
-    'B': ['D', 'C'],
-    'C': [],
-    'D': []
+    'A': ['B'],  # Узел 'A' зависит от узла 'B'
+    'B': ['D', 'C'],  # Узел 'B' зависит от узлов 'D' и 'C'
+    'C': [],  # Узел 'C' не имеет зависимостей
+    'D': []   # Узел 'D' не имеет зависимостей
 }
 
-order = topological_sort(graph)
-print(order)  # Выведет: ['A', 'B', 'C', 'D']
+order = topological_sort(graph)  # Вызываем функцию для сортировки графа
+print(order)  # Выводим отсортированные узлы, результатом будет: ['A', 'B', 'C', 'D']
