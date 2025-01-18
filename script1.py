@@ -19,8 +19,8 @@ def factorial(n):
     return result
 
 # Сохранение данных и функции для передачи
+dump(factorial, "factorial_func.joblib")
 dump(primes, "primes.joblib")
-dump(factorial, "factorial_func.joblib") 
 
 # Вызов второго скрипта
 result = script2.calculate_sum_of_factorials("primes.joblib", "factorial_func.joblib")
