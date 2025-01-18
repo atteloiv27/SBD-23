@@ -2,11 +2,11 @@ import joblib
 from joblib import Parallel, delayed, load
 
 def calculate_sum_of_factorials(primes_path, factorial_func_path):
+    # Загружаем код функции factorial и выполняем его
+    factorial = joblib.load(factorial_func_path)
+
     # Загрузка данных
     primes = joblib.load(primes_path)
-    
-    # Загружаем код функции factorial и выполняем его
-    factorial_code = joblib.load(factorial_func_path)
 
     # Вычисление факториалов параллельно
     def compute_factorial(n):
