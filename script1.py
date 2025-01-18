@@ -3,8 +3,9 @@ from joblib import dump
 import numpy as np
 from sympy import primerange
 import script2  # импортируем второй скрипт
+import inspect
 
-# Увеличиваем лимит на количество цифр в больших числах (из-за того что в питоне есть ограничение на количество символов в числе, то чтобы вывести сумму мы делаем это)
+# Увеличиваем лимит на количество цифр в больших числах
 sys.set_int_max_str_digits(10_000_000)
 
 # Генерация 1000 простых чисел больше 1000
@@ -18,8 +19,8 @@ def factorial(n):
     return result
 
 # Сохранение данных и функции для передачи
-joblib.dump(primes, "primes.joblib")
-joblib.dump(factorial.__code__, "factorial_func_code.joblib")  # Сериализуем код функции, а не саму функцию
+dump(primes, "primes.joblib")
+dump(factorial, "factorial_func.joblib") 
 
 # Вызов второго скрипта
 result = script2.calculate_sum_of_factorials("primes.joblib", "factorial_func.joblib")
