@@ -7,7 +7,6 @@ def calculate_sum_of_factorials(primes_path, factorial_func_path):
     
     # Загружаем код функции factorial и выполняем его
     factorial_code = joblib.load(factorial_func_path)
-    exec(factorial_code)
 
     # Вычисление факториалов параллельно
     def compute_factorial(n):
