@@ -18,7 +18,7 @@ def factorial(n):
     return result
 
 # Сохранение данных и функции для передачи
-joblib.dump(primes, "primes.pkl")
+joblib.dump(primes, "primes.joblib")
 joblib.dump(factorial.__code__, "factorial_func_code.joblib")  # Сериализуем код функции, а не саму функцию
 
 # Вызов второго скрипта
