@@ -18,5 +18,5 @@ def calculate_sum_of_factorials(primes_path, factorial_func_path):
 
 # Этот блок для тестирования, чтобы можно было запустить как отдельный скрипт
 if __name__ == "__main__":
-    result = calculate_sum_of_factorials("primes.pkl", "factorial_func.pkl")
+    result = calculate_sum_of_factorials("primes.joblib", "factorial_func.joblib")
     print(f"Сумма факториалов: {result}")
