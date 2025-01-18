@@ -1,5 +1,5 @@
 import sys
-import joblib
+from joblib import dump
 import numpy as np
 from sympy import primerange
 import script2  # импортируем второй скрипт
@@ -19,9 +19,9 @@ def factorial(n):
 
 # Сохранение данных и функции для передачи
 joblib.dump(primes, "primes.pkl")
-joblib.dump(factorial.__code__, "factorial_func_code.pkl")  # Сериализуем код функции, а не саму функцию
+joblib.dump(factorial.__code__, "factorial_func_code.joblib")  # Сериализуем код функции, а не саму функцию
 
 # Вызов второго скрипта
-result = script2.calculate_sum_of_factorials("primes.pkl", "factorial_func.pkl")
+result = script2.calculate_sum_of_factorials("primes.joblib", "factorial_func.joblib")
 
 print(f"Сумма факториалов: {result}")
