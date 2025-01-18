@@ -19,7 +19,7 @@ def factorial(n):
 
 # Сохранение данных и функции для передачи
 joblib.dump(primes, "primes.pkl")
-joblib.dump(factorial, "factorial_func.pkl")
+joblib.dump(factorial.__code__, "factorial_func_code.pkl")  # Сериализуем код функции, а не саму функцию
 
 # Вызов второго скрипта
 result = script2.calculate_sum_of_factorials("primes.pkl", "factorial_func.pkl")
