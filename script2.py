@@ -1,5 +1,5 @@
 import joblib
-from joblib import Parallel, delayed
+from joblib import Parallel, delayed, load
 
 def calculate_sum_of_factorials(primes_path, factorial_func_path):
     # Загрузка данных и функции
